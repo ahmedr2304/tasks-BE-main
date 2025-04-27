@@ -10,7 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerDocument = require('./swagger.json');
 require("dotenv").config();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images');
@@ -56,5 +56,8 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message });
   });
 DBConcction(() => {
-    app.listen(port)
+    // app.listen(port)
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
 })
